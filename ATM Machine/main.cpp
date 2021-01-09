@@ -33,7 +33,7 @@ int main(){
     cout << "Please enter card\n\n";
 
     accountBal = readDatabase();
-    //cout << setprecision(7) << endl << accountBal2;
+    //loads amount into accountBal
 
     //Do while loop to check password input and attempt counter
     do{
