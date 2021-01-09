@@ -7,7 +7,8 @@ such as withdrawal, deposit and balance inquiry.
 Key features: offline database using fstream library, do-while loop,
 password/pin verification.
 
-TO-DO: SETUP DATABASE AND READOUT / Research how to do
+TO-DO: Withdraw, deposit advance database feature rewrites thru ofstream
+PROBLEM, How to do hash mapping
 implement map pair or database. Include password hidden (****) feature
 ==============================================================================*/
 #include <iostream>
@@ -15,39 +16,29 @@ implement map pair or database. Include password hidden (****) feature
 #include <vector>
 using namespace std;
 
-//vector to load up details from database to program, can be change into MAP
-vector<string> name;
-vector<double> balance;
-vector<int> pass;
-
 //function prototype
 int printDetails();
-void readDatabase();
+double readDatabase();
 int anotherTransaction();
 
 
 int main(){
 
-
     system("Color 3F");
     int pin, command, attempt=0, password=123; //default password 123
-    int accountBal = 10000;
+    double accountBal;
     bool isTrue = true;
-
-    readDatabase();
 
     cout << "====== K E V I N ' S  B A N K =======\n";
     cout << "Please enter card\n\n";
 
-    for(int i=0; i<=name.size(); ++i){
-
-        cout << name[i] << endl;
-    }
+    accountBal = readDatabase();
+    //cout << setprecision(7) << endl << accountBal2;
 
     //Do while loop to check password input and attempt counter
     do{
 
-        cout << "Enter pin: ";
+        cout << "\nEnter pin: ";
         cin >> pin;
 
         if(pin == password){
@@ -57,8 +48,6 @@ int main(){
                 command = printDetails();
 
                 switch(command){
-
-                    char YesNo;
                     int withdraw;
                     int deposit;
 
@@ -67,6 +56,7 @@ int main(){
                         cout << "\n             WITHDRAW\n";
                         cout << "\nEnter amount: ";
                         cin >> withdraw;
+
                             if(accountBal > withdraw){
 
                                 accountBal = accountBal - withdraw;
@@ -117,7 +107,7 @@ int main(){
 //prints services function
 int printDetails(){
 
-    int serviceSelect;
+    int select;
 
     cout << endl;
     cout << "       1   WITHDRAW" << endl;
@@ -126,31 +116,30 @@ int printDetails(){
     cout << "       4   QUIT PROGRAM" << endl;
 
     cout << "       Press selection ";
-    cin >> serviceSelect;
+    cin >> select;
     cout << "=======================================";
-    return serviceSelect;
+    return select;
 }
 
-//reads 'Prototype' database
-void readDatabase(){
+//reads BDO database text file
+double readDatabase(){
 
-    vector<string> name;
-    vector<double> balance;
-    vector<int> pass;
-
-    string accountName;
-    int password;
     double accountBalance;
+    vector<double> balance;
 
     //reads and open BDO database text file
-    ifstream objectFile("BDO Database.txt");
+    ifstream file("BDO Database.txt");
 
-    while(!(objectFile.eof())){
-
-        name.push_back(accountName);
-        pass.push_back(password);
+    if(file.is_open()){
+        while(!file.eof()){
+        //eof - end of file
+        file >> accountBalance;
         balance.push_back(accountBalance);
+        }
+    }else{
+        cout << "Error file not open";
     }
+    return balance[0];
 }
 
 //repeat transaction function
@@ -168,3 +157,7 @@ int anotherTransaction(){
             return 4;
         }
 }
+
+
+
+
