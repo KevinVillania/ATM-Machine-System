@@ -14,12 +14,14 @@ implement map pair or database. Include password hidden (****) feature
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <iomanip>
 using namespace std;
 
 //function prototype
 int printDetails();
 double readDatabase();
 int anotherTransaction();
+void appendDatabase(int amount);
 
 
 int main(){
@@ -33,6 +35,7 @@ int main(){
     cout << "Please enter card\n\n";
 
     accountBal = readDatabase();
+    cout << setprecision(16) << accountBal << endl;
     //loads amount into accountBal
 
     //Do while loop to check password input and attempt counter
@@ -60,6 +63,7 @@ int main(){
                             if(accountBal > withdraw){
 
                                 accountBal = accountBal - withdraw;
+                                appendDatabase(accountBal); //append new account balance to database
                                 cout << "Please get your money\n\n";
                             }else{
 
@@ -74,7 +78,9 @@ int main(){
                         cout << "\nDEPOSIT\n";
                         cout << "\nEnter amount: ";
                         cin >> deposit;
+
                         accountBal = accountBal + deposit;
+                        appendDatabase(accountBal);
 
                         command = anotherTransaction();
                         break;
@@ -84,7 +90,6 @@ int main(){
                         cout << "\nExisting Balance = PHP " << accountBal << endl;
                         command = anotherTransaction();
                         break;
-
                 }
             }
             isTrue = false;
@@ -131,15 +136,17 @@ double readDatabase(){
     ifstream file("BDO Database.txt");
 
     if(file.is_open()){
+
         while(!file.eof()){
         //eof - end of file
         file >> accountBalance;
         balance.push_back(accountBalance);
+
         }
     }else{
         cout << "Error file not open";
     }
-    return balance[0];
+    return balance[balance.size()-1];
 }
 
 //repeat transaction function
@@ -156,6 +163,14 @@ int anotherTransaction(){
             cout << endl << "Please get your card" << endl;
             return 4;
         }
+}
+
+void appendDatabase(int amount){
+
+    ofstream file("BDO database.txt", ios::app);
+
+    file << amount << endl;
+    file.close();
 }
 
 
