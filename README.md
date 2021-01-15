@@ -1,8 +1,11 @@
 # ATM-Machine-System
 
-Automated Teller Machine System for banking
+AUTOMATED TELLER MACHINE SYSTEM
 written in C++, second project by Kevin Villania
 
-KEY Learnings: fstream, functions, do-while loops, switch.
+Key features: Withdrawal, Deposit and Balance Inquiry of money.
 
-![](c%2B%2B.PNG)
+KEY Learnings: fstream, functions, do-while loops, switch.
+Default pin: 123
+
+![](github.PNG)
