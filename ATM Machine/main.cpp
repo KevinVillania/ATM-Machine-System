@@ -7,15 +7,14 @@ such as withdrawal, deposit and balance inquiry.
 Key features: offline database using fstream library, do-while loop,
 password/pin verification.
 
-TO-DO: Withdraw, deposit advance database feature rewrites thru ofstream
-PROBLEM, How to do hash mapping
+TO-DO: PROBLEM, How to do hash mapping
 implement map pair or database. Include password hidden (****) feature
 ==============================================================================*/
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <iomanip>
-using namespace std;
+//using namespace std;
 
 //function prototype
 int printDetails();
@@ -31,8 +30,8 @@ int main(){
     double accountBal;
     bool isTrue = true;
 
-    cout << "====== K E V I N ' S  B A N K =======\n";
-    cout << "Please enter card\n\n";
+    std::cout << "====== K E V I N ' S  B A N K =======\n";
+    std::cout << "Please enter card\n\n";
 
     accountBal = readDatabase();
     cout << setprecision(16) << accountBal << endl;
@@ -47,7 +46,6 @@ int main(){
         if(pin == password){
             //atm body
             while(command != 4){
-
                 command = printDetails();
 
                 switch(command){
@@ -69,7 +67,6 @@ int main(){
 
                                 cout << "INVALID AMOUNT\n\n";
                             }
-
                         command = anotherTransaction();
                         break;
 
@@ -104,7 +101,6 @@ int main(){
             }else{
                 cout << "\nWRONG PIN\n";
             }
-
         }
     }while(isTrue != false);
 }
@@ -165,6 +161,7 @@ int anotherTransaction(){
         }
 }
 
+//rewrite last transaction on fstream file
 void appendDatabase(int amount){
 
     ofstream file("BDO database.txt", ios::app);
